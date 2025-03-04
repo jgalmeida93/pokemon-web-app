@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pokemon Frontend
 
-## Getting Started
+A React application for managing Pokemon data with features to view, add, and update Pokemon.
 
-First, run the development server:
+## Technologies Used
+
+- **NextJS** - React Framework for building user interfaces
+- **TypeScript** - Static type-checking for JavaScript
+- **React Context API** - State management
+- **React Hooks** - For functional component state and lifecycle features
+- **Toast Notifications** - User feedback system
+- **REST API Integration** - For Pokemon data management
+
+## Prerequisites
+
+- Node.js (v22.x or later recommended)
+- npm or yarn
+
+## Installation
+
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/yourusername/pokemon-frontend.git
+cd pokemon-frontend
+npm install
+```
+
+Or if you use yarn:
+
+```bash
+git clone https://github.com/yourusername/pokemon-frontend.git
+cd pokemon-frontend
+yarn
+```
+
+## Running the Project
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Or with yarn:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+yarn dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The application will be available at [http://localhost:3001](http://localhost:3001).
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+- View a list of Pokemon
+- View detailed information for a specific Pokemon
+- Add new Pokemon to the collection
+- Update existing Pokemon
+- Error handling with user-friendly notifications
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `src/context` - Contains React Context for state management
+- `src/api` - API service for Pokemon data operations
+- `src/components` - Reusable React components
+- `src/pages` - Main application pages/routes
 
-## Deploy on Vercel
+## API Integration
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The application connects to a backend Pokemon API with the following endpoints:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- GET /pokemon - Fetch all Pokemon
+- GET /pokemon/:id - Fetch a specific Pokemon
+- POST /pokemon - Create a new Pokemon
+- PUT /pokemon/:id - Update an existing Pokemon
