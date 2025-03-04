@@ -35,7 +35,6 @@ export const PokemonProvider: React.FC<{ children: ReactNode }> = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Load Pokemon data on initial mount
   useEffect(() => {
     const loadInitialData = async () => {
       try {
@@ -58,7 +57,6 @@ export const PokemonProvider: React.FC<{ children: ReactNode }> = ({
     setLoading(true);
     try {
       const data = await pokemonApi.getAll();
-      console.log("Fetched data:", data); // Debug log
       setPokemons(data);
       setError(null);
     } catch (err) {

@@ -41,54 +41,63 @@ export default function PokemonList() {
         <AddPokemonModal onPokemonAdded={() => {}} />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {pokemons.map((pokemon) => (
-          <Card key={pokemon.id} className="overflow-hidden border-border">
-            <CardHeader className="pb-2">
-              <CardTitle className="capitalize">{pokemon.name}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {pokemon.imageUrl && (
-                <div className="flex justify-center">
-                  <Image
-                    src={pokemon.imageUrl}
-                    alt={pokemon.name}
-                    width={100}
-                    height={100}
-                    className="h-40 w-40 object-contain"
-                  />
+        {pokemons.length > 0 &&
+          pokemons.map((pokemon) => (
+            <Card key={pokemon.id} className="overflow-hidden border-border">
+              <CardHeader className="pb-2">
+                <CardTitle className="capitalize">{pokemon.name}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {pokemon.imageUrl && (
+                  <div className="flex justify-center">
+                    <Image
+                      src={pokemon.imageUrl}
+                      alt={pokemon.name}
+                      width={100}
+                      height={100}
+                      className="h-40 w-40 object-contain"
+                    />
+                  </div>
+                )}
+                <div className="mt-2">
+                  <p>
+                    <span className="font-semibold">Types:</span>{" "}
+                    <span className="text-muted-foreground">
+                      {Array.isArray(pokemon.types)
+                        ? pokemon.types.join(", ")
+                        : typeof pokemon.types === "string"
+                          ? pokemon.types
+                          : String(pokemon.types)}
+                    </span>
+                  </p>
                 </div>
-              )}
-              <div className="mt-2">
-                <p>
-                  <span className="font-semibold">Types:</span>{" "}
-                  <span className="text-muted-foreground">
-                    {Array.isArray(pokemon.types)
-                      ? pokemon.types.join(", ")
-                      : typeof pokemon.types === "string"
-                        ? pokemon.types
-                        : String(pokemon.types)}
-                  </span>
-                </p>
-              </div>
-            </CardContent>
-            <CardFooter className="flex justify-between">
-              <Link href={`/pokemons/${pokemon.id}`}>
-                <Button variant="outline" size="sm">
-                  View Details
-                </Button>
-              </Link>
-              <EditPokemonModal
-                pokemon={pokemon}
-                onPokemonUpdated={() => {}}
-                trigger={
+              </CardContent>
+              <CardFooter className="flex justify-between">
+                <Link href={`/pokemons/${pokemon.id}`}>
                   <Button variant="outline" size="sm">
-                    Edit
+                    View Details
                   </Button>
-                }
-              />
-            </CardFooter>
-          </Card>
-        ))}
+                </Link>
+                <EditPokemonModal
+                  pokemon={pokemon}
+                  onPokemonUpdated={() => {}}
+                  trigger={
+                    <Button variant="outline" size="sm">
+                      Edit
+                    </Button>
+                  }
+                />
+              </CardFooter>
+            </Card>
+          ))}
+
+        {pokemons.length === 0 && (
+          <div className="col-span-full flex justify-center items-center">
+            <p data-testid="list-not-found" className="text-muted-foreground">
+              No Pokémons found.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

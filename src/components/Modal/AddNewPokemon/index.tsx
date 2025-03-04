@@ -137,7 +137,7 @@ export function AddPokemonModal({ onPokemonAdded }: AddPokemonModalProps) {
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
-        <Button>Add New Pokemon</Button>
+        <Button data-testid="addpokemon">Add New Pokemon</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>

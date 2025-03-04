@@ -41,3 +41,11 @@ export const pokemonApi = {
     await api.delete(`/api/pokemon/${id}`);
   },
 };
+
+export const pokemonApiMock = {
+  getAll: jest.fn().mockResolvedValue([]),
+  getById: jest.fn(),
+  create: jest.fn(),
+  update: jest.fn(),
+  delete: jest.fn(),
+};
