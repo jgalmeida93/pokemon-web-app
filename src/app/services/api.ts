@@ -1,5 +1,5 @@
-import axios from "axios";
 import { ApiResponse, Pokemon, PokemonFormData } from "@/types/pokemon";
+import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
@@ -42,10 +42,19 @@ export const pokemonApi = {
   },
 };
 
-export const pokemonApiMock = {
-  getAll: jest.fn().mockResolvedValue([]),
-  getById: jest.fn(),
-  create: jest.fn(),
-  update: jest.fn(),
-  delete: jest.fn(),
-};
+export const pokemonApiMock =
+  typeof jest !== "undefined"
+    ? {
+        getAll: jest.fn().mockResolvedValue([]),
+        getById: jest.fn(),
+        create: jest.fn(),
+        update: jest.fn(),
+        delete: jest.fn(),
+      }
+    : {
+        getAll: async () => [],
+        getById: async () => ({}),
+        create: async () => ({}),
+        update: async () => ({}),
+        delete: async () => {},
+      };
