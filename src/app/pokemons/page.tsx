@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,12 +9,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
-import Image from "next/image";
 import { AddPokemonModal } from "@/components/Modal/AddNewPokemon";
 import { EditPokemonModal } from "@/components/Modal/EditPokemon";
 import { LoadingScreen } from "@/components/ui/loading-screen";
 import { usePokemon } from "@/context/PokemonContext";
+import Image from "next/image";
 
 export default function PokemonList() {
   const { pokemons, loading, fetchPokemons } = usePokemon();
@@ -55,7 +55,7 @@ export default function PokemonList() {
       <div className="mb-6">
         <Input
           type="text"
-          placeholder="Search Pokémon by name or type..."
+          placeholder="Search Pokémon by name"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="max-w-md"
@@ -87,8 +87,8 @@ export default function PokemonList() {
                       {Array.isArray(pokemon.types)
                         ? pokemon.types.join(", ")
                         : typeof pokemon.types === "string"
-                          ? pokemon.types
-                          : String(pokemon.types)}
+                        ? pokemon.types
+                        : String(pokemon.types)}
                     </span>
                   </p>
                 </div>
