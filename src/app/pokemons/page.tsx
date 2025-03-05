@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,6 +10,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+
 import Image from "next/image";
 import { AddPokemonModal } from "@/components/Modal/AddNewPokemon";
 import { EditPokemonModal } from "@/components/Modal/EditPokemon";
@@ -18,6 +20,7 @@ import { usePokemon } from "@/context/PokemonContext";
 
 export default function PokemonList() {
   const { pokemons, loading, fetchPokemons } = usePokemon();
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const loadPokemons = async () => {
@@ -30,6 +33,15 @@ export default function PokemonList() {
     loadPokemons();
   }, [fetchPokemons]);
 
+  const filteredPokemons = pokemons.filter(
+    (pokemon) =>
+      pokemon.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (Array.isArray(pokemon.types) &&
+        pokemon.types.some((type) =>
+          type.toLowerCase().includes(searchQuery.toLowerCase())
+        ))
+  );
+
   if (loading) {
     return <LoadingScreen message="Loading Pokémons..." />;
   }
@@ -40,9 +52,18 @@ export default function PokemonList() {
         <h1 className="text-2xl sm:text-3xl font-bold">Pokemon List</h1>
         <AddPokemonModal onPokemonAdded={() => {}} />
       </div>
+      <div className="mb-6">
+        <Input
+          type="text"
+          placeholder="Search Pokémon by name or type..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="max-w-md"
+        />
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {pokemons.length > 0 &&
-          pokemons.map((pokemon) => (
+        {filteredPokemons.length > 0 &&
+          filteredPokemons.map((pokemon) => (
             <Card key={pokemon.id} className="overflow-hidden border-border">
               <CardHeader className="pb-2">
                 <CardTitle className="capitalize">{pokemon.name}</CardTitle>
@@ -91,10 +112,12 @@ export default function PokemonList() {
             </Card>
           ))}
 
-        {pokemons.length === 0 && (
+        {filteredPokemons.length === 0 && (
           <div className="col-span-full flex justify-center items-center">
             <p data-testid="list-not-found" className="text-muted-foreground">
-              No Pokémons found.
+              {searchQuery
+                ? "No Pokémons match your search."
+                : "No Pokémons found."}
             </p>
           </div>
         )}

@@ -101,10 +101,16 @@ export function AddPokemonModal({ onPokemonAdded }: AddPokemonModalProps) {
       if (data.usePokeApi) {
         submitData = { name: data.name };
       } else {
+        const typesArray = data.types
+          ? data.types.split(",").map((type) => type.trim())
+          : [];
+        const abilitiesArray = data.abilities
+          ? data.abilities.split(",").map((ability) => ability.trim())
+          : [];
         submitData = {
           name: data.name,
-          types: data.types || "",
-          abilities: data.abilities || "",
+          types: typesArray,
+          abilities: abilitiesArray,
           height: data.height !== undefined ? data.height : null,
           weight: data.weight !== undefined ? data.weight : null,
           imageUrl: data.imageUrl || "",
